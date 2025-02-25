@@ -5,7 +5,7 @@ import java.util.List;
 import org.ncu.ecommerce_app.entities.Product;
 import org.ncu.ecommerce_app.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,5 +35,11 @@ public class ProductController {
 	public String deleteProduct(@PathVariable int id) {
 		productService.deleteProductById(id);
 		return "Product Deleted Successfully!!";
+	}
+	
+	@PostMapping(value = "/save-products")
+	public ResponseEntity<String> batchSaveProducts(@RequestBody List<Product> products) {
+		productService.batchInsert(products);
+		return ResponseEntity.ok("products added successfully!!");
 	}
 }

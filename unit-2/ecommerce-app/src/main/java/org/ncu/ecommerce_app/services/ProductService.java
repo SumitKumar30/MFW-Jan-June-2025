@@ -9,4 +9,7 @@ public interface ProductService {
 	public void insertProduct(Product product);
 	public void updateProductById(int id, Product product);
 	public void deleteProductById(int id);
+	public void batchInsert(List<Product> productList);
+	public void batchUpdateById(List<Product> updatedProducts);
+	public void batchDeleteById(List<Integer> productIds);
 }

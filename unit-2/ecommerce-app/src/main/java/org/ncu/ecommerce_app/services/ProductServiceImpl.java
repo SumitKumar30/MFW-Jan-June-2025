@@ -37,4 +37,22 @@ public class ProductServiceImpl implements ProductService {
 		productRepository.deleteProduct(id);
 	}
 
+	@Override
+	public void batchInsert(List<Product> productList) {
+		productRepository.batchInsertProducts(productList);
+	}
+
+	@Override
+	public void batchUpdateById(List<Product> updatedProducts) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void batchDeleteById(List<Integer> productIds) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }

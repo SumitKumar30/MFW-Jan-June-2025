@@ -1,11 +1,14 @@
 package org.ncu.ecommerce_app.repositories;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.ncu.ecommerce_app.controllers.ProductController;
 import org.ncu.ecommerce_app.entities.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -56,4 +59,27 @@ public class ProductRepository {
 		}
 		return isDeleted;
 	}
+	
+	public void batchInsertProducts(List<Product> products) {
+		String queryString = "insert into product (product_id, product_name, product_desc, is_available, product_price) VALUES (?, ?, ?, ?, ?)";
+		jdbcTemplate.batchUpdate(queryString, new BatchPreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement ps, int i) throws SQLException {
+				Product product = products.get(i);
+				ps.setInt(1, product.getProductId());
+				ps.setString(2, product.getProductName());
+				ps.setString(3, product.getProductDesc());
+				ps.setBoolean(4, product.isAvailable());
+				ps.setDouble(5, product.getProductPrice());
+			}
+			
+			@Override
+			public int getBatchSize() {
+				// TODO Auto-generated method stub
+				return products.size();
+			}
+		});
+	}
+	
 }
