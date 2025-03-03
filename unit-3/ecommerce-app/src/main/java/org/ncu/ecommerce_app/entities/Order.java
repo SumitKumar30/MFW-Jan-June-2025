@@ -9,9 +9,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
-@jakarta.persistence.Table
+@jakarta.persistence.Table(name = "cust_order")
 public class Order {
 	@Id
+	@Column(name = "order_id")
 	private int orderId;
 	@Column(name = "product_id", nullable = false)
 	private int productId;
@@ -21,8 +22,9 @@ public class Order {
 	private double quantity;
 	@Column(name = "total_price", nullable = false)
 	private double totalPrice;
-	@Column(nullable = false)
+	@Column(name = "order_date", nullable = false)
 	private Date orderDate;
+	
 	public Order(int orderId, int productId, String customerName, double quantity, double totalPrice, Date orderDate) {
 		super();
 		this.orderId = orderId;
